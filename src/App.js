@@ -12,18 +12,38 @@ import InfoBox from './components/InfoBox'
 import Map from './components/Map'
 
 function App() {
+  // --------------------------------------------------------------------- STATE
   const [countries, setCountries] = useState([])
-  const [country, setCountry] = useState(['worldwide'])
+  const [country, setCountry] = useState('worldwide')
+  const [countryInfo, setCountryInfo] = useState({
+    todayCases: 0,
+    cases: 0,
+    todayRecovered: 0,
+    recovered: 0,
+    todayDeaths: 0,
+    deaths: 0,
+  })
+
+  useEffect(() => {
+    fetch('https://disease.sh/v3/covid-19/all')
+      .then((response) => response.json())
+      .then((data) => {
+        setCountry('worldwide')
+        setCountryInfo(data)
+      })
+  }, [])
 
   useEffect(() => {
     const getCountriesData = async () => {
       await fetch('https://disease.sh/v3/covid-19/countries')
         .then((response) => response.json())
         .then((data) => {
-          const countries_data = data.map((country) => ({
-            name: country.country, // United States, United Kingdom, etc.
-            value: country.countryInfo.iso2, // USA, UK, etc.
-          }))
+          const countries_data = data
+            .map((country) => ({
+              name: country.country, // United States, United Kingdom, etc.
+              value: country.countryInfo.iso2, // USA, UK, etc.
+            }))
+            .filter((country) => country.value !== null)
 
           setCountries(countries_data)
         })
@@ -32,11 +52,24 @@ function App() {
     getCountriesData()
   }, [])
 
-  const onCountryChange = (event) => {
+  // ----------------------------------------------------------------- FUNCTIONS
+  const onCountryChange = async (event) => {
     const countryCode = event.target.value
-    setCountry(countryCode)
+
+    const url =
+      countryCode === 'worldwide'
+        ? 'https://disease.sh/v3/covid-19/all'
+        : `https://disease.sh/v3/covid-19/countries/${countryCode}`
+
+    await fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        setCountry(countryCode)
+        setCountryInfo(data)
+      })
   }
 
+  // ----------------------------------------------------------------------- JSX
   return (
     <div className='app'>
       <div className='app__left'>
@@ -51,16 +84,30 @@ function App() {
             >
               <MenuItem value='worldwide'>Worldwide</MenuItem>
               {countries.map((country) => (
-                <MenuItem value={country.value}>{country.name}</MenuItem>
+                <MenuItem key={country.value} value={country.value}>
+                  {country.name}
+                </MenuItem>
               ))}
             </Select>
           </FormControl>
         </div>
 
         <div className='app__stats'>
-          <InfoBox title='Coronavirus Cases' cases={123} total={2000} />
-          <InfoBox title='Recovered' cases={1234} total={3000} />
-          <InfoBox title='Deaths' cases={12345} total={4000} />
+          <InfoBox
+            title='Coronavirus Cases'
+            cases={countryInfo.todayCases}
+            total={countryInfo.cases}
+          />
+          <InfoBox
+            title='Recovered'
+            cases={countryInfo.todayRecovered}
+            total={countryInfo.recovered}
+          />
+          <InfoBox
+            title='Deaths'
+            cases={countryInfo.todayDeaths}
+            total={countryInfo.deaths}
+          />
         </div>
         <Map />
       </div>
