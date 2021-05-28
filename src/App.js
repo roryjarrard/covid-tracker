@@ -29,6 +29,7 @@ function App() {
 
         <FormControl className='app__dropdown'>
           <Select variant='outlined' value='abc' onChange={() => {}}>
+            <MenuItem value='worldwide'>Worldwide</MenuItem>
             {countries.map((country) => (
               <MenuItem value={country.value}>{country.name}</MenuItem>
             ))}
