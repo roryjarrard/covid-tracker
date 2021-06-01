@@ -11,6 +11,7 @@ import './App.css'
 import InfoBox from './components/InfoBox'
 import Map from './components/Map'
 import Table from './components/Table'
+import { sortData } from './util'
 
 function App() {
   // --------------------------------------------------------------------- STATE
@@ -46,7 +47,8 @@ function App() {
             value: country.countryInfo.iso2, // USA, UK, etc.
           }))
 
-          setTableData(data)
+          const sortedData = sortData(data)
+          setTableData(sortedData)
           setCountries(countries_data)
         })
     }

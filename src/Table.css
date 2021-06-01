@@ -18,3 +18,7 @@
 .table td {
   padding: 0.5rem;
 }
+
+.table td.td-cases {
+  font-family: Menlo;
+}

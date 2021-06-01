@@ -7,7 +7,7 @@ function Table({ countries }) {
       {countries.map(({ country, cases, countryInfo }) => (
         <tr key={countryInfo.iso2}>
           <td>{country}</td>
-          <td>
+          <td className='td-cases'>
             <strong>{cases}</strong>
           </td>
         </tr>
