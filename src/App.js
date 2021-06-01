@@ -10,6 +10,7 @@ import './App.css'
 
 import InfoBox from './components/InfoBox'
 import Map from './components/Map'
+import Table from './components/Table'
 
 function App() {
   // --------------------------------------------------------------------- STATE
@@ -23,6 +24,7 @@ function App() {
     todayDeaths: 0,
     deaths: 0,
   })
+  const [tableData, setTableData] = useState([])
 
   useEffect(() => {
     fetch('https://disease.sh/v3/covid-19/all')
@@ -38,13 +40,13 @@ function App() {
       await fetch('https://disease.sh/v3/covid-19/countries')
         .then((response) => response.json())
         .then((data) => {
-          const countries_data = data
-            .map((country) => ({
-              name: country.country, // United States, United Kingdom, etc.
-              value: country.countryInfo.iso2, // USA, UK, etc.
-            }))
-            .filter((country) => country.value !== null)
+          data = data.filter((country) => country.countryInfo.iso2 !== null)
+          const countries_data = data.map((country) => ({
+            name: country.country, // United States, United Kingdom, etc.
+            value: country.countryInfo.iso2, // USA, UK, etc.
+          }))
 
+          setTableData(data)
           setCountries(countries_data)
         })
     }
@@ -115,6 +117,7 @@ function App() {
       <Card className='app__right'>
         <CardContent>
           <h3>Live Cases by Country</h3>
+          <Table countries={tableData} />
           <h3>Worldwide New Cases</h3>
         </CardContent>
         {/* Table */}
