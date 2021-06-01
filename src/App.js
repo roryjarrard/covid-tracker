@@ -11,6 +11,7 @@ import './App.css'
 import InfoBox from './components/InfoBox'
 import Map from './components/Map'
 import Table from './components/Table'
+import LineGraph from './components/LineGraph'
 import { sortData } from './util'
 
 function App() {
@@ -120,10 +121,10 @@ function App() {
         <CardContent>
           <h3>Live Cases by Country</h3>
           <Table countries={tableData} />
+
           <h3>Worldwide New Cases</h3>
+          <LineGraph />
         </CardContent>
-        {/* Table */}
-        {/* Graph */}
       </Card>
     </div>
   )
