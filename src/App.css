@@ -23,6 +23,11 @@ body {
 
 .app__left {
   flex: 0.9;
+  min-width: 485px;
+}
+
+.app__right {
+  margin-top: 20px;
 }
 
 .app__stats {
@@ -30,8 +35,12 @@ body {
   justify-content: space-between;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 980px) {
   .app {
     flex-direction: row;
+  }
+
+  .app__right {
+    margin-top: 0px;
   }
 }
