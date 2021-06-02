@@ -144,8 +144,11 @@ function App() {
           <h3>Live Cases by Country</h3>
           <Table countries={tableData} />
 
-          <h3>Worldwide New Cases</h3>
-          <LineGraph />
+          <h3>
+            Worldwide New{' '}
+            {casesType.charAt(0).toUpperCase() + casesType.slice(1)}
+          </h3>
+          <LineGraph casesType={casesType} />
         </CardContent>
       </Card>
     </div>
