@@ -2,6 +2,10 @@
   flex: 1;
 }
 
+.infoBox:hover {
+  cursor: pointer;
+}
+
 .infoBox--selected.infoBox--cases {
   border-top: 10px solid #cc1034;
 }
@@ -23,6 +27,10 @@
   font-weight: 600;
   font-size: 1.75rem;
   margin-bottom: 0.5rem;
+}
+
+.infoBox--recovered .infoBox__cases {
+  color: #7dd71d !important;
 }
 
 .infoBox__total {
