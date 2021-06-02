@@ -114,18 +114,24 @@ function App() {
         <div className='app__stats'>
           <InfoBox
             title='Coronavirus Cases'
+            casesType='cases'
+            active={casesType === 'cases'}
             cases={prettyPrintStat(countryInfo.todayCases)}
             total={prettyPrintStat(countryInfo.cases)}
             onClick={() => setCasesType('cases')}
           />
           <InfoBox
             title='Recovered'
+            casesType='recovered'
+            active={casesType === 'recovered'}
             cases={prettyPrintStat(countryInfo.todayRecovered)}
             total={prettyPrintStat(countryInfo.recovered)}
             onClick={() => setCasesType('recovered')}
           />
           <InfoBox
             title='Deaths'
+            casesType='deaths'
+            active={casesType === 'deaths'}
             cases={prettyPrintStat(countryInfo.todayDeaths)}
             total={prettyPrintStat(countryInfo.deaths)}
             onClick={() => setCasesType('deaths')}

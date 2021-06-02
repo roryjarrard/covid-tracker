@@ -2,6 +2,18 @@
   flex: 1;
 }
 
+.infoBox--selected.infoBox--cases {
+  border-top: 10px solid #cc1034;
+}
+
+.infoBox--selected.infoBox--recovered {
+  border-top: 10px solid #7dd71d;
+}
+
+.infoBox--selected.infoBox--deaths {
+  border-top: 10px solid #fb4443;
+}
+
 .infoBox:not(:last-child) {
   margin-right: 15px;
 }
