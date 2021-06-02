@@ -28,7 +28,7 @@ function App() {
     deaths: 0,
   })
   const [tableData, setTableData] = useState([])
-  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 })
+  const [mapCenter, setMapCenter] = useState([34.80746, -40.4796])
   const [mapZoom, setMapZoom] = useState(3)
 
   useEffect(() => {
@@ -74,6 +74,14 @@ function App() {
       .then((data) => {
         setCountry(countryCode)
         setCountryInfo(data)
+
+        const position =
+          countryCode === 'worldwide'
+            ? [34.80746, -40.4796]
+            : [data.countryInfo.lat, data.countryInfo.long]
+        const zoomAmt = countryCode === 'worldwide' ? 3 : 4
+        setMapCenter(position)
+        setMapZoom(zoomAmt)
       })
   }
 
