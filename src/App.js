@@ -6,7 +6,7 @@ import {
   Select,
   MenuItem,
 } from '@material-ui/core'
-import './App.css'
+import './css/App.css'
 
 import InfoBox from './components/InfoBox'
 import Map from './components/Map'

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { MapContainer, TileLayer } from 'react-leaflet'
-import '../Map.css'
+import '../css/Map.css'
 
 import { showDataOnMap } from '../util.js'
 
